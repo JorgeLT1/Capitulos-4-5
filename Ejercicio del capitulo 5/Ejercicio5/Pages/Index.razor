@@ -1,0 +1,78 @@
+﻿@page "/"
+
+<h3>Convertir número a palabras</h3>
+<input type="text" @bind="numero" />
+<button type="button" class="btn btn-primary" @onclick="Convertir">Convertir</button>
+<br />
+<br />
+<p>El número en palabras es: @palabras</p>
+
+@code {
+    private string numero;
+    private string palabras;
+
+    private void Convertir()
+    {
+        int n = int.Parse(numero);
+        palabras = NumeroAPalabras(n);
+    }
+
+    private string NumeroAPalabras(int n)
+    {
+        if (n == 0)
+        {
+            return "cero";
+        }
+
+        if (n < 0)
+        {
+            return "menos " + NumeroAPalabras(Math.Abs(n));
+        }
+
+        string palabras = "";
+
+        if ((n / 1000000) > 0)
+        {
+            palabras += NumeroAPalabras(n / 1000000) + " millones ";
+            n %= 1000000;
+        }
+
+        if ((n / 1000) > 0)
+        {
+            palabras += NumeroAPalabras(n / 1000) + " mil ";
+            n %= 1000;
+        }
+
+        if ((n / 100) > 0)
+        {
+            palabras += NumeroAPalabras(n / 100) + " ciento ";
+            n %= 100;
+        }
+
+        if (n > 0)
+        {
+            if (palabras != "")
+            {
+                palabras += "y ";
+            }
+
+            var unidadesMap = new[] { "cero", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", "once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve" };
+            var decenasMap = new[] { "cero", "diez", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa" };
+
+            if (n < 20)
+            {
+                palabras += unidadesMap[n];
+            }
+            else
+            {
+                palabras += decenasMap[n / 10];
+                if ((n % 10) > 0)
+                {
+                    palabras += " y " + unidadesMap[n % 10];
+                }
+            }
+        }
+
+        return palabras;
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Calculadora de Factorial</h1>
+
+<p>
+    Ingrese un número: <input type="text" @bind="numero" />
+    <button type="Calcula" @onclick="CalcularFactorial">Calcular Factorial</button>
+</p>
+
+<p>
+    @if (resultado != 0)
+    {
+        <span>El factorial de @numero es @resultado.</span>
+    }
+</p>
+
+@code {
+    private int numero;
+    private int resultado;
+
+    private void CalcularFactorial()
+    {
+        resultado = 1;
+        for (int i = 1; i <= numero; i++)
+        {
+            resultado = resultado * i;
+        }
+    }
+}

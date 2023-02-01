@@ -1,0 +1,27 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Tabla de multiplicar</h1>
+<input type="number" @bind="selectedNumber" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número</th>
+            <th>Resultado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= 10; i++)
+        {
+            <tr>
+                <td>@selectedNumber</td>
+                <td>@(selectedNumber * i)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private int selectedNumber = 1;
+}
